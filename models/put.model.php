@@ -1,11 +1,11 @@
 <?php 
 
-require_once 'connection.php';
+require_once "connection.php";
 
 class PutModel{
 
 	/*=============================================
-		peticion PUT para crear datos
+	Peticion PUT para editar datos de forma dinámica
 	=============================================*/
 
 	static public function putData($table, $data, $id, $nameId){
@@ -21,6 +21,8 @@ class PutModel{
 		$set = substr($set, 0, -1);
 
 		$stmt = Connection::connect()->prepare("UPDATE $table SET $set WHERE $nameId = :$nameId");
+
+
 
 		foreach ($data as $key => $value) {
 			
@@ -41,6 +43,5 @@ class PutModel{
 		}
 
 	}
-
 
 }
