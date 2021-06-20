@@ -1,5 +1,6 @@
 <?php 
 
+
 $routesArray = explode("/", $_SERVER['REQUEST_URI']);
 $routesArray = array_filter($routesArray);
 
@@ -411,6 +412,7 @@ if (count($routesArray) == 0) {
 			$endAt = null;
 
 			$response = PutController::getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt);
+			
 			
 			if($response){
 

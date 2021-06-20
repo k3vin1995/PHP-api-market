@@ -85,18 +85,19 @@ class PostController{
 					]
 				);
 
-
 				$jwt = JWT::encode($token, $key);
-
 				/*=============================================
 				Actualizamos la base de datos con el Token del usuario
 				=============================================*/
 
 				$data = array(
-					"token_user" => $jwt
+					"token_user" => $jwt,
+					"token_exp_user" => $token["exp"]
 				);
+
 				
 				$update = PutModel::putData($table, $data, $response[0]->id_user, "id_user");
+
 
 				if($update == "The process was successful"){
 
@@ -176,6 +177,5 @@ class PostController{
 		return;
 
 	}
-
 
 }

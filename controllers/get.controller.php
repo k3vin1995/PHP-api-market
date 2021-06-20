@@ -84,13 +84,13 @@ class GetController{
 			$json = array(
 				'status' => 200,
 				'total' => count($response),
-				'result'=> $response
+				'results'=> $response
 			);
 			}else {
 
 				$json = array(
 					'status' => 404,
-					'result'=> "NOT FOUND",
+					'results'=> "NOT FOUND",
 					'method' => $method
 				);
 			}

@@ -13,7 +13,7 @@ class deleteModel{
 	
 	static public function deleteData($table, $id, $nameId){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE $nameId = $nameId");
+		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE $nameId = :$nameId");
 
 		$stmt -> bindParam(":".$nameId, $id, PDO::PARAM_INT);
 

@@ -22,8 +22,6 @@ class PutModel{
 
 		$stmt = Connection::connect()->prepare("UPDATE $table SET $set WHERE $nameId = :$nameId");
 
-
-
 		foreach ($data as $key => $value) {
 			
 			$stmt->bindParam(":".$key, $data[$key], PDO::PARAM_STR);
