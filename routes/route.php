@@ -166,15 +166,25 @@ if (count($routesArray) == 0) {
 			
 			$startAt = $_GET["startAt"];
 			$endAt = $_GET["endAt"];
+
 		}else{
+
 			$startAt = null;
 			$endAt = null;
+
 		}
 
+		if (explode("?", $routesArray[1])[0] == "relations" && isset($_GET["rel"]) && isset($_GET["type"])) {
+			
+			$response = new GetController();
+			$response -> getSearchRelData($_GET['rel'], $_GET['type'], $_GET['linkTo'], $_GET['search'], $orderBy, $orderMode, $startAt, $endAt);
 
-		$response = new GetController();
-		$response -> getSearchData(explode("?", $routesArray[1])[0], $_GET["linkTo"],$_GET["search"], $orderBy, $orderMode, $startAt, $endAt);
-		
+		}else{
+
+			$response = new GetController();
+			$response -> getSearchData(explode("?", $routesArray[1])[0], $_GET["linkTo"],$_GET["search"], $orderBy, $orderMode, $startAt, $endAt);
+
+		}
 
 
 

@@ -71,6 +71,19 @@ class GetController{
 		$return = new GetController();
 		$return ->fncResponse($response, "getSearchData");
 	}
+
+	/*=============================================
+	=         Peticiones GET  para el buscador entre tablas relacionadas=
+	=============================================*/
+
+	public function getSearchRelData($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt){
+
+		$response = GetModel::getSearchRelData($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt);
+
+
+		$return = new GetController();
+		$return ->fncResponse($response, "getSearchRelData");
+	}
 	
 
 	/*=============================================
