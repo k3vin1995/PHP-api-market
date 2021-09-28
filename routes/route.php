@@ -465,7 +465,23 @@ if (count($routesArray) == 0) {
 
 				foreach (array_keys($data) as $key => $value) {
 					
-					$count = array_search($value, $columns);		
+					$count = array_search($value, $columns);
+
+					if(substr($value,0,6) == "views_"){
+						echo '<pre>'; print_r($value); echo '</pre>';
+
+						/*=============================================
+						Solicitamos respuesta del controlador para editar cualquier tabla
+						=============================================*/
+						
+
+						$response = new PutController();
+						$response -> putData(explode("?", $routesArray[1])[0], $data, $_GET["id"], $_GET["nameId"]);
+
+						return;
+
+					}
+									
 				
 				}
 				
