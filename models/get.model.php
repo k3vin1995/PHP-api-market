@@ -9,19 +9,19 @@ class GetModel{
 	=================================================*/
 	
 	
-	static public function getData($table, $orderBy, $orderMode, $startAt, $endAt){
+	static public function getData($table, $orderBy, $orderMode, $startAt, $endAt,$select){
 
 		if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY $orderBy $orderMode");
+			$stmt = Connection::connect()->prepare("SELECT $select FROM $table ORDER BY $orderBy $orderMode");
 
 		}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
+			$stmt = Connection::connect()->prepare("SELECT $select FROM $table ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 
 		}else{
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table");
+			$stmt = Connection::connect()->prepare("SELECT $select FROM $table");
 		}
 
 
@@ -35,14 +35,14 @@ class GetModel{
 	=            peticiones GET CON filtro
 	=================================================*/
 
-	static public function getFilterData($table,$linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt){
+	static public function getFilterData($table,$linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt,$select){
 
 		if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode");
+			$stmt = Connection::connect()->prepare("SELECT $select FROM $table WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode");
 		}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
+			$stmt = Connection::connect()->prepare("SELECT $select FROM $table WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 		}else{
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $linkTo = :$linkTo");
+			$stmt = Connection::connect()->prepare("SELECT $select FROM $table WHERE $linkTo = :$linkTo");
 		}
 
 		$stmt -> bindParam(":".$linkTo, $equalTo, PDO::PARAM_STR);
@@ -60,7 +60,7 @@ class GetModel{
 	Peticiones GET tablas relacionadas sin filtro 
 	=============================================*/
 
-	static public function getRelData($rel, $type, $orderBy, $orderMode, $startAt, $endAt){
+	static public function getRelData($rel, $type, $orderBy, $orderMode, $startAt, $endAt.$select){
 		$relArray = explode(",", $rel);
 		$typeArray = explode(",", $type);
 
@@ -76,13 +76,13 @@ class GetModel{
 
 			if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
 				
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 ORDER BY $orderBy $orderMode");
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 ORDER BY $orderBy $orderMode");
 				
 			}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 			}else{
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2");
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2");
 				
 			}
 		}
@@ -103,14 +103,14 @@ class GetModel{
 
 			if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b ORDER BY $orderBy $orderMode");
 
 			}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 			}else{
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b");
 			}
 		}
@@ -130,13 +130,13 @@ class GetModel{
 			$on3b = $relArray[3].".id_".$typeArray[3];
 
 			if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b INNER JOIN $relArray[3] ON $on3a = $on3b ORDER BY $orderBy $orderMode");
 			}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b INNER JOIN $relArray[3] ON $on3a = $on3b ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 			}else{
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b INNER JOIN $relArray[3] ON $on3a = $on3b");
 			}
 		}
@@ -154,7 +154,7 @@ class GetModel{
 	Peticiones GET tablas relacionadas sin filtro 
 	=============================================*/
 
-	static public function getRelFilterData($rel, $type,$linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt){
+	static public function getRelFilterData($rel, $type,$linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt,$select){
 		$relArray = explode(",", $rel);
 		$typeArray = explode(",", $type);
 
@@ -167,11 +167,11 @@ class GetModel{
 			$on2 = $relArray[1].".id_".$typeArray[1];
 
 			if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode");
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode");
 			}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 			}else{
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo");
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1 = $on2 WHERE $linkTo = :$linkTo");
 			}
 		}
 
@@ -187,15 +187,15 @@ class GetModel{
 
 			if ($orderBy != null && $orderMode != null && $startAt == null && $endAt == null) {
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode");
 
 			}else if ($orderBy != null && $orderMode != null && $startAt != null && $endAt != null) {
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b WHERE $linkTo = :$linkTo ORDER BY $orderBy $orderMode LIMIT $startAt, $endAt");
 			}else{
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
+				$stmt = Connection::connect()->prepare("SELECT $select FROM $relArray[0] INNER JOIN $relArray[1] ON $on1a = $on1b
 					INNER JOIN $relArray[2] ON $on2a = $on2b WHERE $linkTo = :$linkTo");
 			}
 		}

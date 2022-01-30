@@ -44,7 +44,7 @@ if (count($routesArray) == 0) {
 		}
 
 		/*=============================================
-		Preguntamos di viene variable de LIMITE
+		Preguntamos si viene variable de LIMITE
 		=============================================*/
 
 		if (isset($_GET["startAt"]) && isset($_GET["endAt"])) {
@@ -57,7 +57,7 @@ if (count($routesArray) == 0) {
 		}
 		
 		$response = new GetController();
-		$response -> getFilterData(explode("?", $routesArray[1])[0], $_GET["linkTo"],$_GET["equalTo"], $orderBy, $orderMode, $startAt, $endAt);
+		$response -> getFilterData(explode("?", $routesArray[1])[0], $_GET["linkTo"],$_GET["equalTo"], $orderBy, $orderMode, $startAt, $endAt,$select);
 
 		
 
@@ -68,7 +68,7 @@ if (count($routesArray) == 0) {
 	} else if (isset($_GET["rel"]) && isset($_GET["type"]) && explode("?", $routesArray[1])[0] == "relations" &&
 		!isset($_GET["linkTo"]) && !isset($_GET["equalTo"])) {
 		/*=============================================
-		Preguntamos di viene variable de orden
+		Preguntamos si viene variable de orden
 		=============================================*/
 		if (isset($_GET["orderBy"]) && isset($_GET["orderMode"])) {
 			
@@ -80,7 +80,7 @@ if (count($routesArray) == 0) {
 		}
 
 		/*=============================================
-		Preguntamos di viene variable de LIMITE
+		Preguntamos si viene variable de LIMITE
 		=============================================*/
 
 		if (isset($_GET["startAt"]) && isset($_GET["endAt"])) {
@@ -94,7 +94,7 @@ if (count($routesArray) == 0) {
 
 
 		$response = new GetController();
-		$response -> getRelData($_GET["rel"],$_GET["type"], $orderBy, $orderMode, $startAt, $endAt);
+		$response -> getRelData($_GET["rel"],$_GET["type"], $orderBy, $orderMode, $startAt, $endAt,$select);
 		
 
 		
@@ -133,7 +133,7 @@ if (count($routesArray) == 0) {
 
 
 		$response = new GetController();
-		$response -> getRelFilterData($_GET["rel"],$_GET["type"], $_GET["linkTo"],$_GET["equalTo"], $orderBy, $orderMode, $startAt, $endAt);
+		$response -> getRelFilterData($_GET["rel"],$_GET["type"], $_GET["linkTo"],$_GET["equalTo"], $orderBy, $orderMode, $startAt, $endAt,$select);
 
 		
 
@@ -223,7 +223,7 @@ if (count($routesArray) == 0) {
 		}
 
 		$response = new GetController();
-		$response -> getData(explode("?", $routesArray[1])[0], $orderBy, $orderMode, $startAt, $endAt);
+		$response -> getData(explode("?", $routesArray[1])[0], $orderBy, $orderMode, $startAt, $endAt,$_GET["select"]);
 	}			
 
 
