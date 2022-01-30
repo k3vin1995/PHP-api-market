@@ -49,9 +49,9 @@ class GetController{
 	Peticiones GET  tablas relacionadas CON filtro  
 	=============================================*/
 
-	public function getRelFilterData($rel, $type, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt){
+	public function getRelFilterData($rel, $type, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt,$select){
 
-		$response = GetModel::getRelFilterData($rel, $type, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt);
+		$response = GetModel::getRelFilterData($rel, $type, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt,$select);
 
 
 		$return = new GetController();
@@ -76,9 +76,9 @@ class GetController{
 	=         Peticiones GET  para el buscador entre tablas relacionadas=
 	=============================================*/
 
-	public function getSearchRelData($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt){
+	public function getSearchRelData($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt,$select){
 
-		$response = GetModel::getSearchRelData($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt);
+		$response = GetModel::getSearchRelData($rel, $type, $linkTo, $search, $orderBy, $orderMode, $startAt, $endAt,$select);
 
 
 		$return = new GetController();

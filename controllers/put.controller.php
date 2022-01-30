@@ -9,9 +9,9 @@ class PutController {
 	Peticion PUT para editar datos
 	=============================================*/
 
-	public function getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt){
+	public function getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt, $select){
 
-		$response = GetModel::getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt);
+		$response = GetModel::getFilterData($table, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt, $select);
 
 		return $response;
 

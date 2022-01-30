@@ -55,7 +55,7 @@ class PostController{
 
 	public function postLogin($table, $data){
 
-		$response = GetModel::getFilterData($table, "email_user", $data["email_user"],null, null, null, null);
+		$response = GetModel::getFilterData($table, "email_user", $data["email_user"],null, null, null, null, "*");
 		
 		
 		if(!empty($response)){	
